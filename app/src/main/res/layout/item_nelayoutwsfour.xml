@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:maxLines="3"
+        android:ellipsize="end"
+
+        android:layout_marginTop="@dimen/dp_10"
+        android:id="@+id/one_tiile_four"
+        android:textColor="@color/black"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:text="我是标题我牛皮"
+        android:textSize="@dimen/sp_20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:background="@drawable/shape_gray_square_bg"
+        android:padding="@dimen/dp_1"
+        fresco:placeholderImage="@mipmap/ic_launcher"
+        android:layout_margin="@dimen/dp_10"
+        android:id="@+id/news_imageListThumb_four"
+        android:src="@mipmap/ic_launcher"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_150" />
+
+
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_20"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@mipmap/news_top"
+            android:id="@+id/news_top_four"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            />
+        <TextView
+            android:id="@+id/news_origin_four"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:text="origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="@dimen/dp_7"
+            android:id="@+id/news_pagevies_four"
+            android:text="pageviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/news_publishTime_four"
+            android:text="news_"
+            android:layout_marginLeft="@dimen/dp_7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"></LinearLayout>
+        <ImageView
+
+            android:scaleType="fitXY"
+             android:id="@+id/new_x_four"
+             android:layout_marginLeft="@dimen/dp_160"
+            android:background="@mipmap/news_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+
+</LinearLayout>

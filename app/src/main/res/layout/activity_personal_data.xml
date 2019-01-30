@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="#fff"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.login.activity.PersonalDataActivity">
+    <TextView
+        android:layout_width="match_parent"
+        android:background="#fff"
+        android:layout_height="@dimen/dp_20" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_alignParentRight="true"
+            android:id="@+id/login_pd_ESC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@mipmap/esc"
+            android:textSize="30dp" />
+
+        <ImageView
+            android:id="@+id/login_pd_dafanhui"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/zhongfanhui"
+            android:textSize="30dp" />
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+       android:gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:layout_marginTop="@dimen/dp_10"
+            app:roundAsCircle="true"
+            app:roundedCornerRadius="@dimen/dp_50"
+            android:saveEnabled="true"
+            android:id="@+id/img_icon"
+            android:layout_width="@dimen/dp_100"
+            android:layout_height="@dimen/dp_100"
+            android:background="@mipmap/bighead" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_10"
+            android:text="@string/shangchuantouiang"
+            android:textColor="@color/black" />
+
+        <LinearLayout
+            android:layout_width="@dimen/dp_300"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:orientation="vertical">
+
+            <EditText
+                android:layout_width="@dimen/dp_300"
+                android:layout_height="wrap_content"
+                android:background="#ffff"
+                android:hint="@string/qingruyonghuming" />
+
+            <TextView
+                android:layout_width="@dimen/dp_300"
+                android:layout_height="0.5dp"
+                android:layout_marginTop="6dp"
+                android:background="@color/gray" />
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_upload_done"
+            android:text="完  成"
+            android:scaleType="fitXY"
+            android:layout_width="@dimen/dp_300"
+            android:layout_height="@dimen/dp_40"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/login_button_true"
+            android:textColor="#fff" />
+        <TextView
+            android:id="@+id/tv_tiao"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_gravity="center_horizontal"
+            android:text="跳过"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

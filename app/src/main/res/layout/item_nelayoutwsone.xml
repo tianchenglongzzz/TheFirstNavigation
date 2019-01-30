@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:orientation="vertical"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+   <TextView
+       android:maxLines="3"
+    android:layout_marginTop="@dimen/dp_10"
+       android:id="@+id/one_tiile"
+       android:textColor="@color/black"
+       android:layout_marginLeft="@dimen/dp_20"
+       android:text="我是标题我牛皮"
+       android:textSize="@dimen/sp_20"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content" />
+    <LinearLayout
+        android:layout_marginLeft="@dimen/dp_20"
+        android:layout_marginTop="@dimen/dp_20"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:src="@mipmap/news_top"
+            android:id="@+id/news_top"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+           />
+        <TextView
+            android:id="@+id/news_origin"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:text="origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:id="@+id/news_pagevies"
+             android:text="pageviews"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+          <TextView
+              android:id="@+id/news_publishTime"
+              android:text="news_"
+              android:layout_marginLeft="@dimen/dp_10"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content" />
+        <ImageView
+            android:scaleType="fitXY"
+            android:id="@+id/new_x_one"
+            android:layout_marginLeft="@dimen/dp_160"
+            android:background="@mipmap/news_x"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+</LinearLayout>

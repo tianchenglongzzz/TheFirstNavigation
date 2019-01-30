@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent"
+    tools:context=".ui.news.activity.SearchActivity">
+<android.support.v7.widget.Toolbar
+    android:background="@color/read"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <LinearLayout
+        android:id="@+id/lead_group"
+        android:visibility="visible"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:background="@drawable/search"
+        android:layout_width="@dimen/dp_280"
+        android:layout_height="@dimen/dp_30">
+        <ImageView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_gravity="center"
+            android:background="@drawable/search_acitivity"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20" />
+        <TextView
+            android:layout_marginLeft="10dp"
+            android:background="@color/gray"
+            android:layout_gravity="center_vertical"
+            android:layout_width="@dimen/dp_1"
+            android:layout_height="@dimen/dp_20" />
+
+        <EditText
+            android:inputType="text"
+            android:lines="1"
+            android:imeOptions="actionSearch"
+            android:maxLength="10"
+            android:id="@+id/search_ed"
+            android:hint="请输入关键字"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center_vertical"
+            android:background="#fff" />
+               <TextView
+                   android:id="@+id/empty_tv"
+                   android:gravity="center"
+                   android:text="X"
+                   android:textColor="#fff"
+                   android:layout_gravity="center"
+                   android:background="@drawable/circle_btn"
+                   android:layout_width="@dimen/dp_20"
+                   android:layout_height="@dimen/dp_20" />
+
+    </LinearLayout>
+      <TextView
+          android:id="@+id/tv_search_esc"
+          android:textSize="@dimen/sp_15"
+          android:layout_marginLeft="@dimen/dp_20"
+          android:textColor="#fff"
+          android:text="取消"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content" />
+</android.support.v7.widget.Toolbar>
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:id="@+id/search_group"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_margin="@dimen/dp_20"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:textSize="@dimen/sp_15"
+                android:text="搜索历史"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <TextView
+                android:textColor="#000"
+                android:layout_alignParentRight="true"
+                android:text="清空搜索历史"
+                android:textSize="@dimen/sp_13"
+                android:id="@+id/tv_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </RelativeLayout>
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="@dimen/dp_20"
+            android:id="@+id/rv_search_hk"
+            android:scrollbars="none"
+            android:overScrollMode="never"
+            android:nestedScrollingEnabled="false"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </android.support.v7.widget.RecyclerView>
+        <TextView
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+        <TextView
+            android:text="热门搜索"
+            android:layout_margin="@dimen/dp_20"
+            android:textSize="@dimen/sp_15"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <android.support.v7.widget.RecyclerView
+            android:layout_marginLeft="@dimen/dp_20"
+            android:id="@+id/rv_hot_search "
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/search_group_tow"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <FrameLayout
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp">
+            <android.support.design.widget.TabLayout
+                android:id="@+id/tab_search"
+
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></android.support.design.widget.TabLayout>
+              <TextView
+                  android:layout_gravity="center"
+                  android:background="@color/gray"
+                  android:layout_width="0.5dp"
+                  android:layout_height="@dimen/dp_30" />
+        </FrameLayout>
+<android.support.v4.view.ViewPager
+    android:id="@+id/vp_search"
+    android:layout_weight="9"
+    android:layout_width="match_parent"
+    android:layout_height="0dp"></android.support.v4.view.ViewPager>
+    </LinearLayout>
+
+
+</LinearLayout>

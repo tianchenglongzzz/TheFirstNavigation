@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#d7d5d5"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.topic.fragment.SortFragment">
+    <LinearLayout
+        android:gravity="center"
+        android:background="#fff"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_50">
+    <LinearLayout
+        android:visibility="visible"
+        android:layout_marginLeft="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:background="@drawable/search_topic"
+        android:layout_width="@dimen/dp_280"
+        android:layout_height="@dimen/dp_30">
+        <ImageView
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_gravity="center"
+            android:background="@drawable/search_acitivity"
+            android:layout_width="@dimen/dp_20"
+            android:layout_height="@dimen/dp_20" />
+        <EditText
+            android:hint="请输入关键字"
+            android:background="@drawable/search_topic"
+            android:lines="1"
+            android:maxLength="10"
+            android:id="@+id/ed_search_topic"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_width="@dimen/dp_200"
+            android:layout_height="@dimen/dp_30"
+            android:layout_gravity="center_vertical"></EditText>
+
+    </LinearLayout>
+        <TextView
+            android:layout_marginBottom="@dimen/dp_5"
+            android:textSize="@dimen/sp_15"
+            android:textColor="@color/blue"
+            android:id="@+id/tv_topic_search"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:layout_marginTop="@dimen/dp_5"
+            android:text="搜索"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:background="#fff"
+       android:layout_marginTop="@dimen/dp_10"
+        android:id="@+id/rv_topic_sort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+
+
+</LinearLayout>

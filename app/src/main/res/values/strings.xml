@@ -1,0 +1,11 @@
+<resources>
+    <string name="pop_loading">加载中</string>
+    <string name="app_name">第一通航</string>
+    <string name="headers_json">Content-Type:application/json</string>
+    <string name="shangchuantouiang">上传头像</string>
+    <string name="qingruyonghuming">请输入用户名</string>
+    <string name="wancheng">完&#160;&#160;&#160;成</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

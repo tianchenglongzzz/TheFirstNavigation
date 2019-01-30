@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="popWindow">#4Dca0d0d</color>
+    <color name="popWindowTow">#fff</color>
+    <color name="black">#222222</color>
+    <color name="gray">#a4a4a4</color>
+    <color name="read">#d53d3c</color>
+    <color name="green">#1AAC19</color>
+     <color name="blue">#3885af</color>
+    <color name="hot1">#db550b</color>
+    <color name="hot2">#f9732a</color>
+    <color name="hot3">#f9ad2a</color>
+    <color name="hot4">#807d7d</color>
+    <color name="hot5">#a6a6a6</color>
+</resources>

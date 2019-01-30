@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:orientation="vertical"
+    android:background="#22000000"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <LinearLayout
+       android:layout_alignParentBottom="true"
+        android:background="#f7f5f5"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <HorizontalScrollView
+            android:layout_margin="@dimen/dp_10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/tv_share_weibo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:drawableTop="@mipmap/share_weibo"
+                    android:gravity="center"
+                    android:text="微博"
+                    android:textColor="@color/black" />
+                <TextView
+                    android:id="@+id/tv_share_fc"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:gravity="center"
+                    android:drawableTop="@mipmap/share_fc"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"
+                    android:text="朋友圈"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_share_wx"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:gravity="center"
+                    android:drawableTop="@mipmap/share_wx"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"
+                    android:text="微信"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_share_qq"
+                    android:layout_marginLeft="@dimen/dp_20"
+                    android:gravity="center"
+                    android:drawableTop="@mipmap/share_qq"
+                    android:textColor="@color/black"
+                    android:layout_gravity="center_horizontal"
+                    android:text="QQ"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+
+        </HorizontalScrollView>
+        <TextView
+            android:layout_margin="@dimen/dp_10"
+            android:background="@color/gray"
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp" />
+
+    <LinearLayout
+        android:layout_margin="@dimen/dp_10"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            android:id="@+id/tv_share_collect"
+            android:textColor="@color/black"
+            android:text="收藏"
+            android:gravity="center"
+            android:drawableTop="@mipmap/share_collect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_share_yeijian"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:gravity="center"
+            android:drawableTop="@mipmap/yeijian"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:text="夜间模式"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/tv_share_report"
+            android:layout_marginLeft="@dimen/dp_20"
+            android:gravity="center"
+            android:drawableTop="@mipmap/share_report"
+            android:textColor="@color/black"
+            android:layout_gravity="center_horizontal"
+            android:text="举报"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+        <android.support.v7.widget.CardView
+            android:id="@+id/cv_popshare_dismiss"
+            app:cardElevation="@dimen/dp_1"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_50">
+            <TextView
+
+                android:layout_gravity="center"
+                android:text="取消"
+                android:textColor="@color/black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+        </android.support.v7.widget.CardView>
+    </LinearLayout>
+
+</RelativeLayout>
