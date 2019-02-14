@@ -168,6 +168,8 @@ public class AddActivity extends BottomActivity implements  AddRecyclerViewApdat
         mAddToobar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent intent = getIntent();
+                setResult(10);
                 finish();
             }
         });

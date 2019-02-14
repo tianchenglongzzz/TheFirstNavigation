@@ -74,8 +74,18 @@ public class NewsFragment extends BaseFragment<NewListTab.NewListView,NewListPre
     @Override
     protected void initEvemtData() {
 
-        isvisibleView=true;
+
         EventBus.getDefault().register(this);
+        initFrement();
+
+    }
+
+    private void initFrement() {
+        mStrings = new ArrayList<>();
+        mFragmentsNwsItem = new ArrayList<>();
+        mState = SharedPreferencesUtils.getSharedPreferences(getContext()).getBoolean("shuju", true);
+        //第一回进来先从网上拿取数据
+        //第二回就去数据库拿取数具
         mAddNews.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -83,14 +93,6 @@ public class NewsFragment extends BaseFragment<NewListTab.NewListView,NewListPre
             }
         });
 
-    }
-
-    private void initFrement() {
-        mStrings = new ArrayList<>();
-        mFragmentsNwsItem = new ArrayList<>();
-        mState = SharedPreferencesUtils.getSharedPreferences(getContext()).getBoolean("shujukuyi", true);
-        //第一回进来先从网上拿取数据
-        //第二回就去数据库拿取数具
         if (mState) {
             App.getSession().getItemDaoBeanDao().deleteAll();
             if (mFrementAdapter == null) {
@@ -114,23 +116,30 @@ public class NewsFragment extends BaseFragment<NewListTab.NewListView,NewListPre
                     bundle.putInt("key", i);
                     fragement.setArguments(bundle);
                     mFragmentsNwsItem.add(fragement);
+
+                    }
                 }
+            mFrementAdapter = new FrementAdapterTitle(getChildFragmentManager(), mFragmentsNwsItem, mStrings);
+            mNewsVp.setAdapter(mFrementAdapter);
+            mNewsTabLayout.setupWithViewPager(mNewsVp);
+
             }
-
-
-                mFrementAdapter = new FrementAdapterTitle(getChildFragmentManager(), mFragmentsNwsItem, mStrings);
-                mNewsVp.setAdapter(mFrementAdapter);
-                mNewsTabLayout.setupWithViewPager(mNewsVp);
-
         }
 
-    }
+
+
+
+
+
+
+
+
 
     @Override
     public void onStart() {
         super.onStart();
-        initFrement();
-    Log.d("=======","============");
+
+
     }
 
     @Override
@@ -149,7 +158,7 @@ public class NewsFragment extends BaseFragment<NewListTab.NewListView,NewListPre
     public void showNewListBean(listNewsBean listNewsBean) {
        // App.getSession().getItemDaoBeanDao().deleteAll();
         //第一次先在网络种获取数具并插入数据库
-        SharedPreferencesUtils.getSharedPreferences(getContext()).putBoolean("shujukuyi",false);
+        SharedPreferencesUtils.getSharedPreferences(getContext()).putBoolean("shuju",false);
         for (int i = 0; i <listNewsBean.getNewsChannelList().size() ; i++) {
             String channelName = listNewsBean.getNewsChannelList().get(i).getChannelName();
             String newsId = listNewsBean.getNewsChannelList().get(i).getChannelId();
@@ -201,6 +210,9 @@ public class NewsFragment extends BaseFragment<NewListTab.NewListView,NewListPre
          if (requestCode==100&&resultCode==100){
              int p = data.getIntExtra("item", 0);
              mNewsVp.setCurrentItem(p);
+         }
+         if (requestCode==100&&resultCode==10){
+             initFrement();
          }
     }
 

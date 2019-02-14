@@ -3,14 +3,22 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/read</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/read</item>
     </style>
     <style name="anim_pop_bottombar">
         <item name="android:windowEnterAnimation">@anim/bottom_in</item>
         <item name="android:windowExitAnimation">@anim/bottom_out</item>
     </style>
-
-
+<style name="TabLayoutTextStyle">
+    <item name="android:textSize">@dimen/dp_20</item>
+</style>
+        <declare-styleable name="CustomTextView">
+            <attr name="mTextSize" format="dimension"/>
+            <attr name="mTextColor" format="color"/>
+            <attr name="mBackgroudColor" format="color"/>
+            <attr name="mRound" format="dimension"/>
+            <attr name="mText" format="string"/>
+        </declare-styleable>
 </resources>

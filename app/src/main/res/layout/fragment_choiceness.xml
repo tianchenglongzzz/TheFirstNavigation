@@ -8,6 +8,7 @@
 
     <!-- TODO: Update blank fragment layout -->
     <ImageView
+        android:id="@+id/img_uploading_cf"
         android:paddingLeft="@dimen/dp_40"
         android:paddingRight="@dimen/dp_40"
         android:background="#fff"
@@ -15,7 +16,6 @@
         android:src="@mipmap/topic_publish"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50" />
-
     <com.jcodecraeer.xrecyclerview.XRecyclerView
         android:id="@+id/rv_topic_c"
         android:layout_width="match_parent"

@@ -14,8 +14,6 @@ public class jsonUtils {
       public  static  <T> String  getStudent(T t){
           GsonBuilder builder = new GsonBuilder();
           Gson gson = builder.create();
-
-
           return gson.toJson(t);
        }
 }

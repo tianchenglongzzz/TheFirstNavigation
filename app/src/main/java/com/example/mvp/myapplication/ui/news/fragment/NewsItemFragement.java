@@ -60,22 +60,22 @@ public class NewsItemFragement extends BaseFragment<UpListNewsIntenface.IUpListN
 
     @Override
     protected void initEvemtData() {
+       mTitle = getArguments().getString("title");
+       mKey = getArguments().getInt("key");
 
+        Log.d("KEY",mTitle+"");
+       downListNewsjsonBean downListNewsjsonBean = new downListNewsjsonBean("c383f4c9026d471da0184ad5b24c0365", mTitle, "0");
+       mJson = jsonUtils.getStudent(downListNewsjsonBean);
+       ArrayList<UpListNewsBean.NewListBean> newListBeansfash = new ArrayList<>();
 
-     mTitle=getArguments().getString("title");
-        mKey = getArguments().getInt("key");
-        downListNewsjsonBean downListNewsjsonBean = new downListNewsjsonBean("c383f4c9026d471da0184ad5b24c0365", mTitle, "0");
-        mJson = jsonUtils.getStudent(downListNewsjsonBean);
-        ArrayList<UpListNewsBean.NewListBean> newListBeansfash = new ArrayList<>();
-
-        mNewsApterdate = new NewlistApdate(newListBeansfash,getActivity());
-        mXRecyclerView.addItemDecoration(new RecyclerViewDivider(getContext(),DividerItemDecoration.HORIZONTAL));
-        mXRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        mXRecyclerView.setAdapter(mNewsApterdate);
-        mXRecyclerView.setLoadingListener(this);
-        isvisibleView=true;
-       if (mKey==0){
-            persenter.setUpListNewsData(mJson);
+       mNewsApterdate = new NewlistApdate(newListBeansfash, getActivity());
+       mXRecyclerView.addItemDecoration(new RecyclerViewDivider(getContext(), DividerItemDecoration.HORIZONTAL));
+       mXRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+       mXRecyclerView.setAdapter(mNewsApterdate);
+        isvisibleView = true;
+       mXRecyclerView.setLoadingListener(this);
+       if (isvisible) {
+           persenter.setUpListNewsData(mJson);
        }
 
 

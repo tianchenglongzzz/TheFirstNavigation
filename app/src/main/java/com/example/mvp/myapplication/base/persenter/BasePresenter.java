@@ -29,12 +29,16 @@ public abstract class BasePresenter<V extends IBaseView> implements IBasePresent
     }
     @Override
     public void shetShowProgressbar() {
-        mview.showProgessbar();
+        if (mview!=null) {
+            mview.showProgessbar();
+        }
     }
 
     @Override
     public void setHideProgressbar() {
-       mview.hideProgessbar();
+        if (mview!=null) {
+            mview.hideProgessbar();
+        }
     }
 
     @Override
@@ -48,8 +52,13 @@ public abstract class BasePresenter<V extends IBaseView> implements IBasePresent
 
     @Override
     public void setWarn(String string) {
-
+        if (mview!=null) {
+            mview.showWarn();
+        }
     }
 
-
+    @Override
+    public void setErrolayoutdismiss() {
+         mview.dismissErrolayout();
+    }
 }

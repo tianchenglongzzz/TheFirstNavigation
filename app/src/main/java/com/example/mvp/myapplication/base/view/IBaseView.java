@@ -16,6 +16,8 @@ public interface IBaseView {
      void  hideProgessbar();
     //用于处理网络请求错误等数据方法
     void  showError(String error);
-    //用于处理用户输入错误服务器返回错误的方法
-    void  showWarn(String string);
+    //用于处理网络错误的方法
+    void  showWarn();
+    //用于网络请求错误消失的接口
+    void  dismissErrolayout();
 }

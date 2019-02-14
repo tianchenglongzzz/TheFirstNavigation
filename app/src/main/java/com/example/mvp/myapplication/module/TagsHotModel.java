@@ -2,7 +2,9 @@ package com.example.mvp.myapplication.module;
 
 import com.example.mvp.myapplication.contact.TagsHotInterface;
 import com.example.mvp.myapplication.http.base.BaseObserver;
+import com.example.mvp.myapplication.http.bean.callback.InfoBean;
 import com.example.mvp.myapplication.http.bean.callback.TagsHotBean;
+import com.example.mvp.myapplication.http.bean.callback.TagsSearchDataBean;
 import com.example.mvp.myapplication.http.manager.ApiManager;
 import com.example.mvp.myapplication.utils.HttpUtils;
 import com.example.mvp.myapplication.utils.RxUtils;
@@ -28,6 +30,16 @@ public class TagsHotModel {
                            iTagsHotM.shetTagsHotData(value);
                      }
                  });
+     }
+     public  void  getTagsSearchData(final TagsHotInterface.ITagsHotM iTagsSearchM, String json){
+         RequestBody body = HttpUtils.getBody(json);
+         ApiManager.getApi().getTagsSearchData(body).compose(RxUtils.<InfoBean<TagsSearchDataBean>>rxObserableSchedulerHelper())
+                 .compose(RxUtils.<TagsSearchDataBean>handleResult()).subscribe(new BaseObserver<TagsSearchDataBean>(iTagsSearchM) {
+             @Override
+             public void onNext(TagsSearchDataBean value) {
+                   iTagsSearchM.setTagsSearchData(value);
+             }
+         });
      }
 
 }

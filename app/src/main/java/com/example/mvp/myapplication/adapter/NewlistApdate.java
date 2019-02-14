@@ -16,10 +16,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.RequestManager;
 import com.example.mvp.myapplication.R;
 import com.example.mvp.myapplication.http.bean.callback.DownListNewsBean;
 import com.example.mvp.myapplication.http.bean.callback.UpListNewsBean;
 import com.example.mvp.myapplication.ui.news.activity.ShowDataActivity;
+import com.example.mvp.myapplication.utils.GlideUtil;
 import com.facebook.drawee.view.SimpleDraweeView;
 import com.jcodecraeer.xrecyclerview.XRecyclerView;
 
@@ -106,7 +108,8 @@ public class NewlistApdate extends XRecyclerView.Adapter {
                         viewHolderTow.mPageviewsTv.setText(newlistBeanfash.get(position).getPageviews()+"阅读");
                         viewHolderTow.mPublishTimeTv.setText(newlistBeanfash.get(position).getPublishTime());
                     Uri uri = Uri.parse(newlistBeanfash.get(position).getImageListThumb().get(0));
-                    viewHolderTow.mImageListThumbImg.setImageURI(uri);
+
+                    Glide.with(activity).load(newlistBeanfash.get(position).getImageListThumb().get(0)).error(R.drawable.errp).into(((ViewHolderTow) holder).mImageListThumbImg);
                     if (position==0||position==1){
                         viewHolderTow.mTopImg.setImageResource(R.mipmap.news_top);
                     }else {
@@ -159,8 +162,7 @@ public class NewlistApdate extends XRecyclerView.Adapter {
                     }else {
                         viewHolderFour.mTopImg.setVisibility(View.GONE);
                     }
-                    Uri uri = Uri.parse(newlistBeanfash.get(position).getImageListThumb().get(0));
-                    viewHolderFour.mImageListThumbImg.setImageURI(uri);
+                    GlideUtil.setImgBig(newlistBeanfash.get(position).getImageListThumb().get(0),((ViewHolderFour) holder).mImageListThumbImg,activity);
                     viewHolderFour.reovelsit.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -208,7 +210,7 @@ public class NewlistApdate extends XRecyclerView.Adapter {
         TextView  mOriginTv;
         TextView mPageviewsTv;
         TextView mPublishTimeTv;
-        ImageView mImageListThumbImg;
+        SimpleDraweeView mImageListThumbImg;
 
         public ViewHolderTow(View itemView) {
             super(itemView);

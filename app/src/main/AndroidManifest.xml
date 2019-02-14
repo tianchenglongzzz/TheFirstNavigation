@@ -4,6 +4,14 @@
     package="com.example.mvp.myapplication">
 
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <!-- 推荐的权限 -->
+    <!-- 添加如下权限，以便使用更多的第三方SDK和更精准的统计数据 -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="  android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
@@ -54,39 +62,93 @@
             android:label="@string/app_name"
             android:windowSoftInputMode="adjustUnspecified|stateHidden" />
         <activity android:name=".ui.news.activity.SearchActivity" />
-
-        <!--
-    <activity
-        android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen"
-        android:launchMode="singleTask"
-        android:name="com.sina.weibo.sdk.share.WbShareTransActivity">
-        <intent-filter>
-            <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
-            <category android:name="android.intent.category.DEFAULT" />
-        </intent-filter>
-    </activity>
-        <activity
-            android:name=".wxapi.WXEntryActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
-            android:exported="true"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity android:name=".ui.topic.activity.InsertTopicActivity" />
+        <activity android:name=".ui.topic.activity.SelectTagActivity" />
+        <activity android:name=".ui.topic.activity.ShowTagsTopicActivity" />
+        <!-- QQ -->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
             android:launchMode="singleTask"
-            android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent100424468" />
             </intent-filter>
         </activity>
         <activity
             android:name="com.tencent.connect.common.AssistActivity"
-            android:theme="@android:style/Theme.Translucent.NoTitleBar"
-            android:configChanges="orientation|keyboardHidden|screenSize"/>
-        -->
-        <activity android:name=".ui.topic.activity.InsertTopicActivity"></activity>
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 微信 -->
+        <activity
+            android:name=".wxapi.WXEntryActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:exported="true"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+
+        <!-- 新浪 -->
+        <activity
+            android:name="com.umeng.socialize.media.WBShareCallBackActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name="com.sina.weibo.sdk.web.WeiboSdkWebActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name="com.sina.weibo.sdk.share.WbShareTransActivity"
+            android:launchMode="singleTask"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar.Fullscreen">
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.topic.activity.TopicDataActivity">
+            <intent-filter tools:ignore="AppLinkUrlError">
+
+
+                　　
+
+
+                <action android:name="android.intent.action.VIEW" />
+
+
+                　　
+
+
+                <category android:name="android.intent.category.DEFAULT" />
+
+
+                　　
+
+
+                <data android:scheme="http" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.my.activity.UserHomePageActivity" />
+        <activity android:name=".ui.my.activity.UpdateinfoActivity" />
+        <activity android:name=".ui.my.activity.ProfessionActivity" />
+        <activity android:name=".ui.my.activity.PersonalProfileActivity" />
+        <activity android:name=".ui.my.activity.MyCollectActivity" />
+        <activity android:name=".ui.my.activity.ListFollowActivity" />
+        <activity android:name=".ui.my.activity.MoreFollowActivity" />
+        <activity android:name=".ui.my.activity.ListNotifyActivity" />
+        <activity android:name=".ui.my.activity.ListCommentActivity" />
+        <activity android:name=".ui.my.activity.MyListTopicActivity" />
+        <activity android:name=".ui.my.activity.SettingActivity" />
+        <activity android:name=".ui.my.activity.FeedbackActivity" />
+        <activity android:name=".ui.my.activity.WebActivity" />
+        <activity android:name=".ui.my.activity.TextSizeActivity" />
+        <activity android:name=".ui.my.activity.InforomTowActivity"></activity>
     </application>
 
 </manifest>

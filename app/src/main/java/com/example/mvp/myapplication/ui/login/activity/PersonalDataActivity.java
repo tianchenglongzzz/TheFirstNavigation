@@ -27,7 +27,10 @@ import com.example.mvp.myapplication.http.bean.callback.UploadHeadImageBean;
 import com.example.mvp.myapplication.presenter.UploadHeadImagePresenter;
 import com.example.mvp.myapplication.ui.main.activitys.MainActivity;
 import com.example.mvp.myapplication.utils.BitmapUtils;
+import com.example.mvp.myapplication.utils.CameraUtils;
 import com.facebook.drawee.view.SimpleDraweeView;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -144,11 +147,9 @@ public class PersonalDataActivity  extends BaseActivity<UploadingInterface.IUplo
 
     @Override
     public void showUploadHeadImageBean(UploadHeadImageBean uploadHeadImageBean) {
-        showTost("打印成功");
+        showTost("登陆成功");
         String headImagePath = uploadHeadImageBean.getHeadImagePath();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.putExtra("icon",headImagePath);
-        startActivity(intent);
+         finish();
     }
 
 
@@ -218,22 +219,7 @@ public class PersonalDataActivity  extends BaseActivity<UploadingInterface.IUplo
 
     //打开照相机
     private void takePhoto() {
-        // 步骤一：创建存储照片的文件
-        String path = getFilesDir() + File.separator + "images" + File.separator;
-        File file = new File(path, "test.jpg");
-        if(!file.getParentFile().exists())
-            file.getParentFile().mkdirs();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            //步骤二：Android 7.0及以上获取文件 Uri
-            mUri = FileProvider.getUriForFile(PersonalDataActivity.this, "com.example.admin.custmerviewapplication", file);
-        } else {
-            //步骤三：获取文件Uri
-            mUri = Uri.fromFile(file);
-        }
-        //步骤四：调取系统拍照
-        Intent intent = new Intent("android.media.action.IMAGE_CAPTURE");
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, mUri);
-        startActivityForResult(intent,1);
+        CameraUtils.initCameraUtils(this,mUri,1);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -319,10 +305,12 @@ public class PersonalDataActivity  extends BaseActivity<UploadingInterface.IUplo
         return bitmap;
     }
 
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post("");
     }
+}
 
 /*//检查权限
     private boolean checkPermission() {

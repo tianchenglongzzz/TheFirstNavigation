@@ -1,7 +1,8 @@
 package com.example.mvp.myapplication.utils;
 
+import android.util.Log;
+
 import com.example.mvp.myapplication.http.bean.callback.InfoBean;
-import com.example.mvp.myapplication.http.bean.callback.VCBean;
 import com.example.mvp.myapplication.http.bean.erro.ApiException;
 
 import io.reactivex.Observable;
@@ -39,9 +40,11 @@ public class RxUtils {
                 return upstream.flatMap(new Function<InfoBean<T>, ObservableSource<T>>() {
                     @Override
                     public ObservableSource<T> apply(InfoBean<T> tInfoBean) throws Exception {
+                        Log.e("TAG",tInfoBean.getCode()+"");
                                     if (tInfoBean.getCode()==0){
                                         return  createData(tInfoBean.getData());
                                     }else {
+                                        Log.e("TAG",tInfoBean.getMessage());
                                          new Throwable("");
                                          return  Observable.error(new ApiException(tInfoBean.getMessage(), tInfoBean.getCode()));
                                     }

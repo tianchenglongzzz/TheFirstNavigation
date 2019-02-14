@@ -13,7 +13,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -25,16 +24,29 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mvp.myapplication.R;
 import com.example.mvp.myapplication.adapter.RelevantAdapter;
+import com.example.mvp.myapplication.adapter.TopicCommentAdapter;
+import com.example.mvp.myapplication.app.Global;
 import com.example.mvp.myapplication.base.activity.BaseActivity;
 import com.example.mvp.myapplication.contact.InfoInterface;
 import com.example.mvp.myapplication.http.bean.callback.InfiBean;
+import com.example.mvp.myapplication.http.bean.callback.InfoBean;
+import com.example.mvp.myapplication.http.bean.callback.ListCommentBean;
 import com.example.mvp.myapplication.http.bean.callback.RelevantBean;
+import com.example.mvp.myapplication.jsonbean.JsonFollow;
+import com.example.mvp.myapplication.jsonbean.JsonLikesBean;
+import com.example.mvp.myapplication.jsonbean.JsonListComment;
 import com.example.mvp.myapplication.presenter.InfoPresenter;
-import com.example.mvp.myapplication.utils.HtmlUtil;
+import com.example.mvp.myapplication.utils.jsonUtils;
+import com.example.mvp.myapplication.view.Html5Webview;
 import com.example.mvp.myapplication.watcher.SoftKeyboardStateWatcher;
+import com.umeng.socialize.ShareAction;
+import com.umeng.socialize.UMShareListener;
+import com.umeng.socialize.bean.SHARE_MEDIA;
+import com.umeng.socialize.media.UMWeb;
 
 
 import org.jsoup.Jsoup;
@@ -42,6 +54,7 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -56,7 +69,7 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
     @BindView(R.id.info_toobar)
     Toolbar mToolbar;
     @BindView(R.id.wab_news_data)
-    WebView mWebView;
+    Html5Webview mWebView;
     @BindView(R.id.info_title)
     TextView infoTitle;
     @BindView(R.id.re_relevant)
@@ -71,6 +84,9 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
     TextView mInfoFavoured;
     @BindView(R.id.im_tool)
     ImageView mImTool;
+    @BindView(R.id.news_comment_rc)
+    RecyclerView mCommentRV;
+    private boolean likes=true;
     /**
      * 取消
      */
@@ -78,9 +94,18 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
     /**
      * 写评论
      */
+    /*
+    * 点赞
+    */
+    @BindView(R.id.likes_img)
+    ImageView likesImg;
     private TextView mPopcomentReview;
     private PopupWindow mPopComment;
     private PopupWindow mPopRightTop;
+    private String mTitle;
+    private TopicCommentAdapter mNewsCommentAdapter;
+    private ArrayList<ListCommentBean.CommentListBean> mCommentListBeans;
+    private String mNewsId;
 
     @Override
     public int createLayout() {
@@ -99,7 +124,7 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
     public void origination() {
         setToobar();
         Intent intent = getIntent();
-        String newsId = intent.getStringExtra("newsId");
+        mNewsId = intent.getStringExtra("newsId");
    //设置支持javascript 带码
         mWebView.setWebViewClient(new WebViewClient()/*{
             @Override
@@ -152,8 +177,8 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
 
         settings.setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
 
-        persemter.getInfoList(newsId);
-        persemter.getRelevantlsit(newsId);
+        persemter.getInfoList(mNewsId);
+        persemter.getRelevantlsit(mNewsId);
         SoftKeyboardStateWatcher watcher = new SoftKeyboardStateWatcher(gen, this);
         watcher.addSoftKeyboardStateListener(new SoftKeyboardStateWatcher.SoftKeyboardStateListener() {
             @Override
@@ -167,6 +192,12 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
                     mPopComment.dismiss();
             }
         });
+        mCommentListBeans = new ArrayList<>();
+        mNewsCommentAdapter = new TopicCommentAdapter(mCommentListBeans,this);
+        mCommentRV.setLayoutManager(new LinearLayoutManager(this));
+        mCommentRV.setAdapter(mNewsCommentAdapter);
+        String json = jsonUtils.getStudent(new JsonListComment(mNewsId, "0", 0));
+        persemter.getlistComment(json);
         //if (mWebView.isHardwareAccelerated()) mWebView.setLayerType(View.LAYER_TYPE_HARDWARE,null);
 
 
@@ -185,7 +216,7 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
         });
     }
 
-    @OnClick({R.id.info_comment,R.id.info_share,R.id.im_tool})
+    @OnClick({R.id.info_comment,R.id.info_share,R.id.im_tool,R.id.likes_img})
     public void onClick(View view) {
         switch (view.getId()){
             case  R.id.info_comment:
@@ -197,6 +228,18 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
             case  R.id.im_tool:
                 showShareP();
                 break;
+            case  R.id.likes_img:
+
+                if (likes) {
+                    String json = jsonUtils.getStudent(new JsonLikesBean(Global.USER, mNewsId, "0","0"));
+                    likesImg.setImageResource(R.mipmap.news_praise_high);
+                    persemter.getLikeData(json);
+                }else {
+                    String json = jsonUtils.getStudent(new JsonLikesBean(Global.USER, mNewsId, "1","0"));
+                    likesImg.setImageResource(R.mipmap.news_praise);
+                    persemter.getLikeData(json);
+                }
+              break;
         }
 
 
@@ -205,29 +248,29 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
     }
 
     private void showShareP() {
-        PoPItemClick poPItemClick = new PoPItemClick();
-        View inflate = LayoutInflater.from(this).inflate(R.layout.popshare, null);
-       TextView wiboShare= inflate.findViewById(R.id.tv_share_weibo);
-       TextView wxShare=inflate.findViewById(R.id.tv_share_wx);
-       TextView qqShare=inflate.findViewById(R.id.tv_share_qq);
-       TextView fcShare=inflate.findViewById(R.id.tv_share_fc);
-        TextView tvCollect=inflate.findViewById(R.id.tv_share_collect);
-        TextView tvNight=inflate.findViewById(R.id.tv_share_yeijian);
-        TextView tvReport=inflate.findViewById(R.id.tv_share_report);
-        CardView cardView=inflate.findViewById(R.id.cv_popshare_dismiss);
-        mPopRightTop = new PopupWindow(this);
-        mPopRightTop.setContentView(inflate);
-        mPopRightTop.setBackgroundDrawable(new ColorDrawable());
-        mPopRightTop.setWidth(GridLayout.LayoutParams.MATCH_PARENT);
-        mPopRightTop.setHeight(GridLayout.LayoutParams.MATCH_PARENT);
-        mPopRightTop.setAnimationStyle(R.style.anim_pop_bottombar);
-        mPopRightTop.showAtLocation(mToolbar,Gravity.NO_GRAVITY,0,0);
-        wiboShare.setOnClickListener(poPItemClick);
-        qqShare.setOnClickListener(poPItemClick);
-        fcShare.setOnClickListener(poPItemClick);
-        wxShare.setOnClickListener(poPItemClick);
-        tvNight.setOnClickListener(poPItemClick);
-        cardView.setOnClickListener(poPItemClick);
+            PoPItemClick poPItemClick = new PoPItemClick();
+            View inflate = LayoutInflater.from(this).inflate(R.layout.popshare, null);
+            TextView wiboShare= inflate.findViewById(R.id.tv_share_weibo);
+            TextView wxShare=inflate.findViewById(R.id.tv_share_wx);
+            TextView qqShare=inflate.findViewById(R.id.tv_share_qq);
+            TextView fcShare=inflate.findViewById(R.id.tv_share_fc);
+            TextView tvCollect=inflate.findViewById(R.id.tv_share_collect);
+            TextView tvNight=inflate.findViewById(R.id.tv_share_yeijian);
+            TextView tvReport=inflate.findViewById(R.id.tv_share_report);
+            CardView cardView=inflate.findViewById(R.id.cv_popshare_dismiss);
+            mPopRightTop = new PopupWindow(this);
+            mPopRightTop.setContentView(inflate);
+            mPopRightTop.setBackgroundDrawable(new ColorDrawable());
+            mPopRightTop.setWidth(GridLayout.LayoutParams.MATCH_PARENT);
+            mPopRightTop.setHeight(GridLayout.LayoutParams.MATCH_PARENT);
+            mPopRightTop.setAnimationStyle(R.style.anim_pop_bottombar);
+            mPopRightTop.showAtLocation(mToolbar,Gravity.NO_GRAVITY,0,0);
+            wiboShare.setOnClickListener(poPItemClick);
+            qqShare.setOnClickListener(poPItemClick);
+            fcShare.setOnClickListener(poPItemClick);
+            wxShare.setOnClickListener(poPItemClick);
+            tvNight.setOnClickListener(poPItemClick);
+            cardView.setOnClickListener(poPItemClick);
 
 
 
@@ -251,7 +294,7 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
     private void setPopC(View popcoment) {
 
         mCardView.setVisibility(View.GONE);
-                mPopComment = new PopupWindow(this);
+        mPopComment = new PopupWindow(this);
         mPopComment.setContentView(popcoment);
         mPopComment.setBackgroundDrawable(new ColorDrawable());
         mPopComment.setFocusable(true);
@@ -272,7 +315,8 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
 
     @Override
     public void showInfoBean(InfiBean InfiBean) {
-          //Log.e("tian",InfiBean.getContent());
+        mTitle = InfiBean.getTitle();
+        //Log.e("tian",InfiBean.getContent());
         mWebView.loadDataWithBaseURL(null,getHtmlData(InfiBean.getContent()), "text/html",  "utf-8", null);
         infoTitle.setText(InfiBean.getTitle());
         infotime.setText(InfiBean.getPublishTime());
@@ -305,7 +349,23 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
 
     }
 
+    @Override
+    public void showlistComment(ListCommentBean listCommentBean) {
+         Log.d("info",listCommentBean.toString());
+         mCommentListBeans.addAll(listCommentBean.getCommentList());
+         mNewsCommentAdapter.notifyDataSetChanged();
 
+    }
+
+    @Override
+    public void showLikeData(InfoBean infoBean){
+        Log.d("showFollow",infoBean.getMessage());
+          if (likes){
+              likes=false;
+          }else {
+              likes=true;
+          }
+    }
 
 
     public void initViewPop(View view) {
@@ -340,15 +400,38 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
       public void onClick(View v) {
            switch (v.getId()){
                case R.id.tv_share_weibo:
-
+                   UMWeb  webxinl = new UMWeb("http://www.baidu.com");
+                   new ShareAction(ShowDataActivity.this)
+                           .setPlatform(SHARE_MEDIA.SINA)//传入平台
+                           .withMedia(webxinl)
+                           .setCallback(shareListener)//回调监听器
+                           .share();
                break;
                case R.id.tv_share_wx:
-
+                   UMWeb  web = new UMWeb("http://www.baidu.com");
+                   new ShareAction(ShowDataActivity.this)
+                           .setPlatform(SHARE_MEDIA.WEIXIN)//传入平台
+                           .withMedia(web)
+                           .setCallback(shareListener)//回调监听器
+                           .share();
                    break;
                case R.id.tv_share_qq:
-
+                   UMWeb  webb = new UMWeb("http://www.baidu.com");
+                   webb.setTitle(mTitle);//标题
+                   new ShareAction(ShowDataActivity.this)
+                           .setPlatform(SHARE_MEDIA.QQ)//传入平台
+                           .withMedia(webb)
+                           .setCallback(shareListener)//回调监听器
+                           .share();
                    break;
                case R.id.tv_share_fc:
+                   UMWeb  pengyouquan = new UMWeb("http://www.baidu.com");
+                   pengyouquan.setTitle(mTitle);//标题
+                   new ShareAction(ShowDataActivity.this)
+                           .setPlatform(SHARE_MEDIA.WEIXIN_CIRCLE)//传入平台
+                           .withMedia(pengyouquan)
+                           .setCallback(shareListener)//回调监听器
+                           .share();
 
                    break;
                case R.id.cv_popshare_dismiss:
@@ -358,5 +441,44 @@ public class ShowDataActivity extends BaseActivity<InfoInterface.IinfoView, Info
            }
       }
   }
+    private UMShareListener shareListener = new UMShareListener() {
+        /**
+         * @descrption 分享开始的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onStart(SHARE_MEDIA platform) {
+
+        }
+
+        /**
+         * @descrption 分享成功的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onResult(SHARE_MEDIA platform) {
+            Toast.makeText(ShowDataActivity.this,"成功了",Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享失败的回调
+         * @param platform 平台类型
+         * @param t 错误原因
+         */
+        @Override
+        public void onError(SHARE_MEDIA platform, Throwable t) {
+            Toast.makeText(ShowDataActivity.this,"失败"+t.getMessage(),Toast.LENGTH_LONG).show();
+        }
+
+        /**
+         * @descrption 分享取消的回调
+         * @param platform 平台类型
+         */
+        @Override
+        public void onCancel(SHARE_MEDIA platform) {
+            Toast.makeText(ShowDataActivity.this,"取消了",Toast.LENGTH_LONG).show();
+
+        }
+    };
 
 }

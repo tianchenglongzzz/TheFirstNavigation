@@ -33,7 +33,6 @@ import com.example.mvp.myapplication.ui.main.frements.MyFrement;
 import com.example.mvp.myapplication.ui.main.frements.NewsFragment;
 import com.example.mvp.myapplication.ui.main.frements.TopicFragment;
 import com.example.mvp.myapplication.ui.news.activity.SearchActivity;
-import com.umeng.analytics.MobclickAgent;
 
 import java.util.ArrayList;
 
@@ -57,7 +56,14 @@ public class MainActivity extends BottomActivity {
     }
 
     @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    @Override
     public void origination() {
+
         mToolbar.setTitle("");
         setSupportActionBar(mToolbar);
         NewsFragment newsFragment = new NewsFragment();
@@ -70,10 +76,10 @@ public class MainActivity extends BottomActivity {
         fragments.add(myFrement);
 
 
-            mFrementAdapter = new FrementAdapter(getSupportFragmentManager(), fragments);
+        mFrementAdapter = new FrementAdapter(getSupportFragmentManager(), fragments);
 
         mViewPager.setAdapter(mFrementAdapter);
-       mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.setupWithViewPager(mViewPager);
 
         for (int i = 0; i <fragments.size() ; i++) {
             Tab tabAt = mTabLayout.getTabAt(i);
@@ -96,11 +102,11 @@ public class MainActivity extends BottomActivity {
 
             @Override
             public void onPageSelected(int position) {
-                    if (position==0){
-                        mToolbar.setVisibility(View.VISIBLE);
-                    }else {
-                        mToolbar.setVisibility(View.GONE);
-                    }
+                if (position==0){
+                    mToolbar.setVisibility(View.VISIBLE);
+                }else {
+                    mToolbar.setVisibility(View.GONE);
+                }
             }
 
             @Override
@@ -108,7 +114,6 @@ public class MainActivity extends BottomActivity {
 
             }
         });
-
     }
     @OnClick(R.id.toobar_search)
     public  void  onClick(){
@@ -131,12 +136,12 @@ public class MainActivity extends BottomActivity {
     protected void onResume() {
         super.onResume();
 
-        MobclickAgent.onResume(this);
+      //  MobclickAgent.onResume(this);
     }
 
     protected void onPause() {
         super.onPause();
-        MobclickAgent.onPause(this);
+      //  MobclickAgent.onPause(this);
     }
 
 }

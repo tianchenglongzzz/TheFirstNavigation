@@ -36,6 +36,9 @@ import com.example.mvp.myapplication.presenter.LoginPresenter;
 import com.example.mvp.myapplication.utils.SharedPreferencesUtils;
 import com.tencent.bugly.crashreport.CrashReport;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -70,6 +73,7 @@ public  class LoginActivity extends BaseActivity<LoginInterface.ILoginV,LoginPre
 
         super.onCreate(savedInstanceState);
 
+
     }
 
     @Override
@@ -80,7 +84,7 @@ public  class LoginActivity extends BaseActivity<LoginInterface.ILoginV,LoginPre
 
     @Override
     public void origination() {
-
+        EventBus.getDefault().register(this);
          //设置选框状
         mCheckPact.setOnCheckedChangeListener(this);
         zhuangtaiB(false);
@@ -203,8 +207,7 @@ public  class LoginActivity extends BaseActivity<LoginInterface.ILoginV,LoginPre
         if (phone!=null&&mLoginEdVcode.getText().toString().equals(verify)){
             //如果数据库中有这个手机号
               if (phoneBoolean){
-                    //就打个Tost
-                  showTost("老用户了--------你退群把");
+                   finish();
               }else {
                   //存入数据库
                    //没有就存入数据库//并跳到第注册页面
@@ -286,5 +289,17 @@ public  class LoginActivity extends BaseActivity<LoginInterface.ILoginV,LoginPre
         if (code!=null) {
             mLoginEdVcode.setText(code);
         }
+    }
+
+    @Subscribe
+    public   void   getEventString(String s){
+          finish();
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().post("1");
+        EventBus.getDefault().unregister(this);
+
     }
 }

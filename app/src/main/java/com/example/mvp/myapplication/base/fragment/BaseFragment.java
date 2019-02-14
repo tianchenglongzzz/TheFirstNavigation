@@ -3,14 +3,18 @@ package com.example.mvp.myapplication.base.fragment;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.RequiresApi;
+import android.support.v7.app.AlertDialog;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.PopupWindow;
 
 import com.example.mvp.myapplication.R;
 import com.example.mvp.myapplication.base.persenter.IBasePresenter;
 import com.example.mvp.myapplication.base.view.IBaseView;
+import com.timmy.tdialog.TDialog;
 
 /**
  * @packge: com.example.mvp.myapplication.base.fragment
@@ -19,21 +23,19 @@ import com.example.mvp.myapplication.base.view.IBaseView;
  */
 public abstract class BaseFragment<V ,P extends IBasePresenter<V>>extends BottomFragment implements IBaseView {
  public    P  persenter;
-    private View mView;
-    private PopupWindow mWindow;
 
+    private View mBaseView;
+
+    private View mErroview;
+    private AlertDialog mAlertDialog;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onViewCreateView(View view) {
+        mBaseView = view;
         persenter=createPresnter();
         persenter.attachView((V) this);
-        mView=LayoutInflater.from(getContext()).inflate(R.layout.basepopwindow, null);
-        mWindow = new PopupWindow();
-        mWindow.setBackgroundDrawable(new ColorDrawable());
-        mWindow.setWidth(getActivity().getWindow().getAttributes().width);
-        mWindow.setHeight(getActivity().getWindow().getAttributes().height);
-        mWindow.setContentView(mView);
+        mAlertDialog = new AlertDialog.Builder(getContext()).setView(LayoutInflater.from(getContext()).inflate(R.layout.loding, null)).create();
     }
 
     public abstract P createPresnter();
@@ -46,32 +48,43 @@ public abstract class BaseFragment<V ,P extends IBasePresenter<V>>extends Bottom
 
     @Override
     public void showProgessbar(){
-              mView.post(new Runnable() {
-                  @Override
-                  public void run() {
-                      mWindow.showAtLocation(mView,Gravity.NO_GRAVITY,0,0);
-                  }
-              });
+        if (mAlertDialog!=null) {
+            mAlertDialog.show();
+            WindowManager.LayoutParams attributes = mAlertDialog.getWindow().getAttributes();
+            attributes.width=300;
+            attributes.height=300;
+            mAlertDialog.getWindow().setAttributes(attributes);
 
-
-
-
-
+        }
     }
 
     @Override
-    public void showWarn(String string) {
-            showTost(string);
+    public void showWarn() {
+        if (mErroview == null){
+            mErroview = LayoutInflater.from(getContext()).inflate(R.layout.http_erro, (ViewGroup) mBaseView);
+        }else {
+            mErroview.setVisibility(View.VISIBLE);
+        }
     }
 
 
     @Override
     public void hideProgessbar() {
-         mWindow.dismiss();
+        if (mAlertDialog!=null) {
+            mAlertDialog.dismiss();
+        }
+
     }
 
     @Override
     public void showError(String error) {
           showTost(error);
+    }
+
+    @Override
+    public void dismissErrolayout() {
+        if (mErroview!=null) {
+            mErroview.setVisibility(View.GONE);
+        }
     }
 }

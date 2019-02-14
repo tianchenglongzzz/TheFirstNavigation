@@ -213,4 +213,5 @@ public class SerchNewlistApdate extends XRecyclerView.Adapter {
   }
 
 
+
 }

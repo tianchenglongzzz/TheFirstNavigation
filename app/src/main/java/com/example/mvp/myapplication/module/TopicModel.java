@@ -5,6 +5,8 @@ import android.util.Log;
 import com.example.mvp.myapplication.app.Global;
 import com.example.mvp.myapplication.contact.TopicInterface;
 import com.example.mvp.myapplication.http.base.BaseObserver;
+import com.example.mvp.myapplication.http.bean.callback.InfiBean;
+import com.example.mvp.myapplication.http.bean.callback.InfoBean;
 import com.example.mvp.myapplication.http.bean.callback.TopicBean;
 import com.example.mvp.myapplication.http.manager.ApiManager;
 import com.example.mvp.myapplication.utils.HttpUtils;
@@ -41,6 +43,16 @@ public class TopicModel {
               });
 
           }
+
+      }
+      public void  getLikesData(final TopicInterface.ITopicDataM dataM, String json){
+          RequestBody requestBody = HttpUtils.getBody(json);
+          ApiManager.getApi().setLike(requestBody).compose(RxUtils.<InfoBean>rxObserableSchedulerHelper()).subscribe(new BaseObserver<InfoBean>(dataM) {
+              @Override
+              public void onNext(InfoBean value) {
+                     dataM.setLike(value);
+              }
+          });
 
       }
 

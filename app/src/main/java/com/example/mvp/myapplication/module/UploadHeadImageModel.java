@@ -37,7 +37,7 @@ public class UploadHeadImageModel {
 
             @Override
             public void onNext(UploadHeadImageBean value) {
-                   iUploadHeadImageM.setploadHeadImageuBean(value);
+                iUploadHeadImageM.setploadHeadImageuBean(value);
             }
         });
 

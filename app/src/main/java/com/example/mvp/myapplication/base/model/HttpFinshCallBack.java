@@ -23,6 +23,7 @@ public interface HttpFinshCallBack {
     void  setError(String error);
     //用于处理用户输入错误服务器返回错误的方法
     void  setWarn(String string);
+    void  setErrolayoutdismiss();
 
 
 }

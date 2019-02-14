@@ -36,10 +36,11 @@ public class SharedPreferencesUtils {
     public  boolean getBoolean(String name,boolean defValue){
            return   mSharedPreferences.getBoolean(name,defValue);
     }
-    public void  putBoolean(String key, boolean value){
+    public void putBoolean(String key, boolean value){
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         edit.putBoolean(key,value);
         edit.commit();
+
 
     }
     public void  putInt(String key,int value){
@@ -52,7 +53,14 @@ public class SharedPreferencesUtils {
         SharedPreferences.Editor edit = mSharedPreferences.edit();
         edit.putStringSet(key,value);
     }
-
+   public  void  putFloat(float f,String key){
+       SharedPreferences.Editor edit = mSharedPreferences.edit();
+       edit.putFloat(key,f);
+       edit.commit();
+   }
+   public  float  getFloat(String key,float  defValue){
+          return  mSharedPreferences.getFloat(key,defValue);
+   }
 
 
 

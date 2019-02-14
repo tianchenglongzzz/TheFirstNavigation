@@ -45,7 +45,7 @@ CompositeDisposable mCompositeDisposable = new CompositeDisposable();
            }
            if (e instanceof ApiException){
 
-               Log.e(TAG, "onError: "+((ApiException) e).getCode() );
+               Log.e(TAG, "onError: "+e.getMessage() );
                switch (((ApiException) e).getCode()) {
                    case 2001:
                       erro="验证码错误";
@@ -69,8 +69,11 @@ CompositeDisposable mCompositeDisposable = new CompositeDisposable();
             mFinshCallBack.setError(erro);
            if (e instanceof HttpException){
                erro="网络请求错误";
+               mFinshCallBack.setWarn("");
+
            }else {
               erro="其他请求错误";
+              mFinshCallBack.setWarn("");
            }
            if (erro!=null){
                mFinshCallBack.setError(erro);
@@ -91,7 +94,7 @@ CompositeDisposable mCompositeDisposable = new CompositeDisposable();
         if (mFinshCallBack!=null){
             mFinshCallBack.setHideProgressbar();
         }
-
+        mFinshCallBack.setErrolayoutdismiss();
     }
 
 

@@ -2,6 +2,7 @@ package com.example.mvp.myapplication.presenter;
 
 import com.example.mvp.myapplication.base.persenter.BasePresenter;
 import com.example.mvp.myapplication.contact.TopicInterface;
+import com.example.mvp.myapplication.http.bean.callback.InfoBean;
 import com.example.mvp.myapplication.http.bean.callback.TopicBean;
 import com.example.mvp.myapplication.module.TopicModel;
 
@@ -14,8 +15,18 @@ public class TopicPresenter<V extends TopicInterface.ITopicDataV> extends BasePr
     TopicModel mTopicModel=new TopicModel();
 
     @Override
+    public void setLike(InfoBean value) {
+          mview.showLike(value);
+    }
+
+    @Override
     public void setFreshTopicData(TopicBean value) {
           mview.showData(value);
+    }
+
+    @Override
+    public void getLike(String json) {
+       mTopicModel.getLikesData(this,json);
     }
 
     @Override

@@ -5,7 +5,7 @@ package com.example.mvp.myapplication.http.bean.callback;
  * @filename:InfiBean
  * @date :${DATA} 11:27
  */
-public class InfiBean {
+public class InfiBean<F> {
 
     /**
      * comments : 0
